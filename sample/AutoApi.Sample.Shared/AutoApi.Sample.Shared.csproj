@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoApi.Rest.Shared\AutoApi.Rest.Shared.csproj" />
-    <ProjectReference Include="..\AutoApi\AutoApi.csproj" />
+    <ProjectReference Include="..\..\src\AutoApi.Rest.Shared\AutoApi.Rest.Shared.csproj" />
+    <ProjectReference Include="..\..\src\AutoApi\AutoApi.csproj" />
   </ItemGroup>
 
 </Project>

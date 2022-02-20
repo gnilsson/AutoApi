@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoApi.Extensions.Microsoft.DependencyInjection\AutoApi.Extensions.Microsoft.DependencyInjection.csproj" />
-    <ProjectReference Include="..\AutoApi.Mediator\AutoApi.Mediator.csproj" />
+    <ProjectReference Include="..\..\src\AutoApi.Extensions.Microsoft.DependencyInjection\AutoApi.Extensions.Microsoft.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\src\AutoApi.Mediator\AutoApi.Mediator.csproj" />
     <ProjectReference Include="..\AutoApi.Sample.Shared\AutoApi.Sample.Shared.csproj" />
   </ItemGroup>
 

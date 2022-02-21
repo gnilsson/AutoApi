@@ -1,4 +1,5 @@
-﻿using AutoApi.Mediator;
+﻿using AutoApi.EntityFramework.Repository;
+using AutoApi.Mediator;
 using AutoApi.Rest.Pipeline.Handlers;
 using AutoApi.Rest.Shared.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -7,32 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AutoApi.Rest.Pipeline.Controller;
 
-public class Test2Controller : ControllerBase
-{
-    private readonly IMediator _mediator;
-
-    public Test2Controller(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
-    [HttpGet("hmmm")]
-    public async Task<IActionResult> Heh()
-    {
-        var ah = await _mediator.SendAsync(new TestRequest());
-        return Ok(ah);
-    }
-}
-
 public class AutoApiRestController<TResponse, TQuery, TCommand> :
     ControllerBase,
     IAutoApiRestController<TResponse, TQuery, TCommand>
 {
     private readonly IMediator _mediator;
+    private readonly IRepositoryWrapper _repositoryWrapper;
 
-    public AutoApiRestController(IMediator mediator)
+    public AutoApiRestController(IMediator mediator, IRepositoryWrapper repositoryWrapper)
     {
         _mediator = mediator;
+        _repositoryWrapper = repositoryWrapper;
     }
 
     [HttpGet("/heh")]

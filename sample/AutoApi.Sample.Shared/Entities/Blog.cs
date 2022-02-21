@@ -16,7 +16,7 @@ public class Blog : IEntity
     public BlogCategory BlogCategory { get; set; }
     public ICollection<Post> Posts { get; set; }
     public ICollection<Author> Authors { get; set; }
-    public Identifier Id { get; set; }
+    public Guid Id { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
 }

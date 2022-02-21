@@ -37,7 +37,7 @@ public class GeneralRepository<TContext> :
         Identifier entityId,
         CancellationToken token)
         where TEntity : class, IEntity
-        => await Set<TEntity>().Include("Blogs").FirstAsync(x => x.Id == entityId, token);
+        => await Set<TEntity>().Include("Blogs").FirstAsync(x => x.Id == (Guid)entityId, token);
 
     //public async ValueTask<TEntity> FindAsync<TEntity>(
     //    Guid entityId,

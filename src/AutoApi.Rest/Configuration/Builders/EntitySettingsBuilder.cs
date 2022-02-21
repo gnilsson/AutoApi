@@ -20,7 +20,6 @@ public static class EntitySettingsBuilder
 {
     public static AutoApiRestConfigurationOptions Build(this AutoApiRestConfigurationOptions config)
     {
-
         var exportedTypes = config.ContextTypes.SelectMany(x => x.Assembly.GetExportedTypes()).Distinct().ToArray();
 
         PerformAttributesChecking(exportedTypes);
@@ -47,9 +46,10 @@ public static class EntitySettingsBuilder
             commandTypes).ToArray();
 
         config.ExtendedRepositoryType = exportedTypes.FirstOrDefault(x => x.BaseType == typeof(Repository<,,>));
-        config.EntitySettingsCollection = entitySettingsCollection;
-        return config;
 
+        config.EntitySettingsCollection = entitySettingsCollection;
+
+        return config;
     }
 
     private static IEnumerable<Type> GetForeignRelations(Type entityType, Type[] allEntityTypes)

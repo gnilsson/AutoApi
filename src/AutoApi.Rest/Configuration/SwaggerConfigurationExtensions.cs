@@ -14,11 +14,12 @@ public static class SwaggerConfigurationExtensions
         _increment = () => count++;
         _getCount = () => count;
     }
+
     public static void AddSwagger(this IServiceCollection services) //Action<SwaggerGenOptions> swaggerConfiguration)
     {
         services.AddSwaggerGen(x =>
         {
-            x.SwaggerDoc("v1", new OpenApiInfo { Title = "Rapier.Server API", Version = "v1" });
+            x.SwaggerDoc("v1", new OpenApiInfo { Title = "AutoApi.Sample.Server", Version = "v1" });
 
             x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {

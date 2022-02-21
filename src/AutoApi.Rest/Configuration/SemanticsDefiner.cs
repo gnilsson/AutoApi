@@ -56,7 +56,7 @@ public class SemanticsDefiner
     private static IEnumerable<object> BuildQueries(IDictionary<Type, IEnumerable<ConfigurationDefinition.Field>> fieldDescriptions)
     {
         return fieldDescriptions.Select(x => ExpressionUtility.CreateConstructor(
-                typeof(Query<>).MakeGenericType(typeof(PagedResponse<>).MakeGenericType(x.Key)),
+                typeof(Query<>).MakeGenericType(typeof(PaginateableResponse<>).MakeGenericType(x.Key)),
                 typeof(IEnumerable<ConfigurationDefinition.Field>))(x.Value));
     }
 

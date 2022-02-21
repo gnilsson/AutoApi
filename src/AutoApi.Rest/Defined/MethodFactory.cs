@@ -3,7 +3,7 @@ using AutoApi.EntityFramework.Repository;
 
 namespace AutoApi.Rest.Defined;
 
-public static partial class MethodFactory
+public static class MethodFactory
 {
     public static Func<Type, MethodInfo> GetManyAsync { get; }
 

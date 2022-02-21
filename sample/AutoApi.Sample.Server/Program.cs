@@ -1,46 +1,23 @@
-﻿using AutoApi.Extensions.Microsoft.DependencyInjection;
-using AutoApi.Mediator;
-using AutoApi.Rest.Configuration.Settings;
-using AutoApi.Rest.Pipeline.Handlers;
-using AutoApi.Sample.Server;
-using AutoApi.Sample.Shared.Entities;
+﻿using AutoApi.Sample.Server.Database;
+using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace AutoApi.Sample.Server;
 
-
-builder.Services.AddTransient<IPipelineBehaviour<TestRequest, TestResponse>, TestPipelineBehaviour>();
-
-builder.Services.AddAutoApiControllers(opt =>
+public class Program
 {
-    opt.EndpointSettingsCollection = new()
+    public static async Task Main(string[] args)
     {
-        [typeof(Author)] = new ControllerEndpointSettings { Route = "api/author" },
-        [typeof(Blog)] = new ControllerEndpointSettings { Route = "api/blog" },
-        [typeof(Post)] = new ControllerEndpointSettings { Route = "api/post" },
-    };
-});
+        var host = CreateHostBuilder(args).Build();
+        using var scope = host.Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<AutoApiEfDbContext>();
+        await context.Database.MigrateAsync();
+        await host.RunAsync();
+    }
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "AutoApi.Sample.Server", Version = "v1" });
-});
-
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AutoApi.Sample.Server v1"));
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }
-
-app.UseHttpsRedirection();
-
-app.UseRouting();
-app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapDefaultControllerRoute();
-});
-
-app.Run();

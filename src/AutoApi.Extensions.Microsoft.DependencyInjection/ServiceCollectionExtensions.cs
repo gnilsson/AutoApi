@@ -8,11 +8,13 @@ public static class ServiceCollectionExtensions
     public static void AddAutoApiControllers(this IServiceCollection services, Action<AutoApiRestConfigurationOptions> options)
     {
         services.AddRestControllers(options);
+
         //services.AddMediator();
     }
 
     public static void AddAutoApi(this IServiceCollection services)
     {
         services.AddRestApi();
+     //   services.AddTransient<IMediator, MediatorImpl>();
     }
 }

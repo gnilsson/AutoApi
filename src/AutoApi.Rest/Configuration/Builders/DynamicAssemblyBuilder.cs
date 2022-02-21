@@ -91,10 +91,10 @@ public static class DynamicAssemblyBuilder
         msilGenerator.Emit(OpCodes.Stfld, field2);
         msilGenerator.Emit(OpCodes.Ret);
 
-        foreach (var foreignEntityDefinition in foreignEntityDefinitions)
-        {
-            DefineGetNestedMethod(entityDefinition, controllerType, extendedType, foreignEntityDefinition);
-        }
+        //foreach (var foreignEntityDefinition in foreignEntityDefinitions)
+        //{
+        //    DefineGetNestedMethod(entityDefinition, controllerType, extendedType, foreignEntityDefinition);
+        //}
 
         var type = extendedType.CreateType()!;
 

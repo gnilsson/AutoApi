@@ -129,6 +129,8 @@ public static class ServiceCollectionExtensions
 
         services.AddPipelineBehaviors();
 
+        services.AddTransient<ServiceFactory>(p => p.GetService);
+
         services.AddTransient<IMediator, MediatorImpl>();
 
         var mapper = new Mapping(entitySettings).ConfigureMapper();
@@ -181,17 +183,17 @@ public static class ServiceCollectionExtensions
     private static object CreateQueryManager(EntitySettings setting)
     {
         var queryConfigConstructor = ExpressionUtility.CreateConstructor(
-            typeof(QueryConfiguration<>).MakeGenericType(setting.EntityType),
-            typeof(ICollection<string>));
+            typeof(QueryConfiguration<>).MakeGenericType(setting.EntityType));
+        //typeof(ICollection<string>));
 
         var queryManagerConstructor = ExpressionUtility.CreateConstructor(
             typeof(QueryManager<>).MakeGenericType(setting.EntityType),
-            typeof(IQueryConfiguration),
-            typeof(ConfigurationDefinition.Entity[]));
+            typeof(IQueryConfiguration));
+            //typeof(ConfigurationDefinition.Entity[]));
 
         var queryConfig = queryConfigConstructor(setting.ExplicitExpandedMembers?.ToList()!);
 
-        var queryManager = queryManagerConstructor(queryConfig, setting.ForeignEntityDefinitions);
+        var queryManager = queryManagerConstructor(queryConfig); // , setting.ForeignEntityDefinitions);
 
         return queryManager;
     }

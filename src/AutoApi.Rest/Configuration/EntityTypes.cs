@@ -35,7 +35,7 @@ public class EntityTypes
             GetHandler = new[]
             {
                 typeof(IRequestHandler<,>)
-                    .MakeGenericType(getQuery, typeof(PagedResponse<>)
+                    .MakeGenericType(getQuery, typeof(PaginateableResponse<>)
                     .MakeGenericType(setting.ResponseType)),
 
                 typeof(GetHandler<,,>)

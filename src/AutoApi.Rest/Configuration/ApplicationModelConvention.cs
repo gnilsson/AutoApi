@@ -155,7 +155,7 @@ public class ApplicationModelConvention : IApplicationModelConvention
 
         yield return actionModel.ActionMethod.Name switch
         {
-            DefaultAction.Get => new ProducesResponseTypeAttribute(typeof(PagedResponse<>).MakeGenericType(setting.ResponseType), 200),
+            DefaultAction.Get => new ProducesResponseTypeAttribute(typeof(PaginateableResponse<>).MakeGenericType(setting.ResponseType), 200),
             DefaultAction.Create => new ProducesResponseTypeAttribute(setting.ResponseType, 201),
             DefaultAction.Delete => new ProducesResponseTypeAttribute(typeof(DeleteResponse), 200),
             _ => new ProducesResponseTypeAttribute(setting.ResponseType, 200)

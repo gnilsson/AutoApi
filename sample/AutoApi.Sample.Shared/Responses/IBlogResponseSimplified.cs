@@ -5,6 +5,6 @@ namespace AutoApi.Sample.Shared;
 
 public interface IBlogResponseSimplified : ISimplified
 {
-    public Identifier Id { get; init; }
-    public string Title { get; init; }
+    public string? Id { get; init; }
+    public string? Title { get; init; }
 }

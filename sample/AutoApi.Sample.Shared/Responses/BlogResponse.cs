@@ -4,7 +4,7 @@ namespace AutoApi.Sample.Shared;
 
 public class BlogResponse : EntityResponse, IBlogResponseSimplified
 {
-    public string Title { get; init; } = default!;
+    public string? Title { get; init; }
     public IEnumerable<IPostResponseSimplified>? Posts { get; init; }
     public string? BlogCategory { get; init; }
     public IEnumerable<IAuthorResponseSimplified>? Authors { get; init; }

@@ -45,6 +45,7 @@ public static class SwaggerConfigurationExtensions
                     Array.Empty<string>()
                 }
             });
+
             x.DocInclusionPredicate((x, y) =>
             {
 

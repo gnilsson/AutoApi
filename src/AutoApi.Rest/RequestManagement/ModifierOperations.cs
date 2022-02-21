@@ -2,6 +2,8 @@
 using System.Reflection;
 using AutoApi.Defined.Descriptive;
 using AutoApi.Domain;
+using FastExpressionCompiler;
+using GN.Toolkit;
 
 namespace AutoApi.Rest.RequestManagement;
 
@@ -20,7 +22,7 @@ public static class ModifierOperations<TEntity, TCommand> where TCommand : IComm
             var exprs = new List<MemberAssignment>();
             foreach (var propertyKeyPair in propertyCollection)
             {
-                if (command.RequestForeignEntities.TryGetValue(propertyKeyPair.Key, out var foreignEntity))
+                if (command.RequestForeignEntities.TryGetValue(propertyKeyPair.Key, out var foreignEntity) && propertyKeyPair.Value is Array { Length: > 0 })
                 {
                     CreateCollection(exprs, propertyKeyPair, foreignEntity);
                     continue;
@@ -34,14 +36,16 @@ public static class ModifierOperations<TEntity, TCommand> where TCommand : IComm
             var now = Expression.Constant(DateTime.UtcNow);
             exprs.AddRange(new[]
             {
-                    Expression.Bind(_idMember, Expression.Constant(Guid.NewGuid())),
-                    Expression.Bind(_createdMember, now),
-                    Expression.Bind(_updatedMember, now)
+                Expression.Bind(_idMember, Expression.Constant(Identifier.New())),
+                Expression.Bind(_createdMember, now),
+                Expression.Bind(_updatedMember, now)
             });
+
+            var ctor = typeof(TEntity).GetConstructor(BindingFlags.Public | BindingFlags.Instance, Array.Empty<Type>())!;
 
             var create = Expression.Lambda<Func<TCommand, TEntity>>(
                 Expression.MemberInit(Expression.New(typeof(TEntity)), exprs),
-                Expression.Parameter(typeof(TCommand))).Compile();
+                Expression.Parameter(typeof(TCommand))).CompileFast();
 
             return create(command);
         };

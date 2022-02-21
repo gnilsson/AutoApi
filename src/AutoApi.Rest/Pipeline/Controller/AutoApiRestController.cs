@@ -1,16 +1,22 @@
 ﻿using AutoApi.EntityFramework.Repository;
 using AutoApi.Mediator;
-using AutoApi.Rest.Pipeline.Handlers;
+using AutoApi.Rest.RequestManagement;
+using AutoApi.Rest.ResponseManagement;
+using AutoApi.Rest.Shared.Requests;
 using AutoApi.Rest.Shared.Responses;
+using GN.Toolkit;
 using Microsoft.AspNetCore.Mvc;
 
-[assembly: ApiConventionType(typeof(DefaultApiConventions))]
+//[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
 namespace AutoApi.Rest.Pipeline.Controller;
 
 public class AutoApiRestController<TResponse, TQuery, TCommand> :
     ControllerBase,
-    IAutoApiRestController<TResponse, TQuery, TCommand>
+    IAutoApiRestController<TQuery, TCommand>
+    where TResponse : EntityResponse
+    where TQuery : GetRequest
+    where TCommand : IModifyRequest
 {
     private readonly IMediator _mediator;
     private readonly IRepositoryWrapper _repositoryWrapper;
@@ -21,34 +27,38 @@ public class AutoApiRestController<TResponse, TQuery, TCommand> :
         _repositoryWrapper = repositoryWrapper;
     }
 
-    [HttpGet("/heh")]
-    public async Task<IActionResult> Test()
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] TCommand request)
     {
-        var ah = await _mediator.SendAsync(new TestRequest());
-        return Ok(ah);
+        return await _mediator
+            .SendAsync(new CreateCommand<TCommand, TResponse>(request))
+            .ToResultAsync(Ok, NotFound);
     }
 
-    public Task<ActionResult<TResponse>> Create([FromBody] TCommand request)
-    {
-        throw new NotImplementedException();
-    }
-
+    [HttpDelete]
     public Task<IActionResult> Delete(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ActionResult<PaginateableResponse<TResponse>>> Get([FromQuery] TQuery request)
+    [HttpGet]
+    public async Task<IActionResult> Get([FromQuery] TQuery request)
     {
-        throw new NotImplementedException();
+        return await _mediator
+            .SendAsync(new GetQuery<TQuery, TResponse>(request))
+            .ToResultAsync(Ok, NotFound);
     }
 
-    public Task<ActionResult<TResponse>> GetById(Guid id)
+    [HttpGet]
+    public async Task<IActionResult> GetById(string id)
     {
-        throw new NotImplementedException();
+        return await _mediator
+            .SendAsync(new GetByIdQuery<TResponse>(new Identifier(id)))
+            .ToResultAsync(Ok, NotFound);
     }
 
-    public Task<ActionResult<TResponse>> Update(Guid id, [FromBody] TCommand request)
+    [HttpPatch]
+    public Task<IActionResult> Update(Guid id, [FromBody] TCommand request)
     {
         throw new NotImplementedException();
     }

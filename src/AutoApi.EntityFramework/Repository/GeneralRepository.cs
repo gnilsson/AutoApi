@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Linq;
+using System.Linq.Expressions;
 using AutoApi.Domain;
 using GN.Toolkit;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ public class GeneralRepository<TContext> :
         Identifier entityId,
         CancellationToken token)
         where TEntity : class, IEntity
-        => await Set<TEntity>().Include("Blogs").FirstAsync(x => x.Id == (Guid)entityId, token);
+        => await Set<TEntity>().Include("Blogs").FirstAsync(x => x.Id == entityId, token);
 
     //public async ValueTask<TEntity> FindAsync<TEntity>(
     //    Guid entityId,
@@ -53,11 +54,13 @@ public class GeneralRepository<TContext> :
     //}
 
     public async Task<List<TEntity>> GetManyAsync<TEntity>(
-        IEnumerable<Guid> entityIds,
+        IEnumerable<string> entityIds,
         CancellationToken token)
         where TEntity : class, IEntity
-         => await FindByCondition<TEntity>(e => entityIds.Contains(e.Id))
-            .ToListAsync(token);
+    {
+        var ids = entityIds.Select(x => new Identifier(x));
+        return await FindByCondition<TEntity>(e => ids.Contains(e.Id)).ToListAsync(token);
+    }
 
     public async Task<List<TEntity>> GetManyAsync<TEntity>(
         IEnumerable<Guid> entityIds,

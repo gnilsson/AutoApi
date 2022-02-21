@@ -12,11 +12,11 @@ public class Blog : IEntity
         this.Authors = new HashSet<Author>();
     }
 
-    public string? Title { get; set; }
+    public string Title { get; set; } = default!;
     public BlogCategory BlogCategory { get; set; }
     public ICollection<Post> Posts { get; set; }
     public ICollection<Author> Authors { get; set; }
-    public Guid Id { get; set; }
+    public Identifier Id { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
 }

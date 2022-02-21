@@ -22,7 +22,7 @@ public class GetByIdHandler<TEntity, TRequest, TResponse> :
 
     public virtual async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
     {
-        var entityResponse = await _repository.GetOneAsync(x => x.Id == (Guid)request.Id , cancellationToken);
+        var entityResponse = await _repository.GetOneAsync(x => x.Id == request.Id , cancellationToken);
 
         return entityResponse ?? default!;
     }

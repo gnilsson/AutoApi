@@ -17,7 +17,7 @@ public interface IGeneralRepository
                         CancellationToken token)
                         where TEntity : class, IEntity;
     Task<List<TEntity>> GetManyAsync<TEntity>(
-                        IEnumerable<Guid> entityIds,
+                        IEnumerable<string> entityIds,
                         CancellationToken token)
                         where TEntity : class, IEntity;
     Task CreateAsync<TEntity>(TEntity entity,

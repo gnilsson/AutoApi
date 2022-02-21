@@ -11,11 +11,11 @@ public class Author : IEntity
         this.Blogs = new HashSet<Blog>();
     }
 
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
     public ProfessionCategory Profession { get; set; }
     public ICollection<Blog> Blogs { get; set; }
-    public Guid Id { get; set; }
+    public Identifier Id { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
 }

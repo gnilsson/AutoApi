@@ -1,14 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using AutoApi.EntityFramework.Repository;
+﻿using AutoApi.EntityFramework.Repository;
 using AutoApi.Exceptions;
 using AutoApi.Mediator;
 using AutoApi.QueryRequestDefinition;
 using AutoApi.Rest.Configuration.Builders;
-using AutoApi.Rest.Configuration.Definitions;
 using AutoApi.Rest.Configuration.Settings;
+using AutoApi.Rest.Configuration.Wire;
 using AutoApi.Rest.EntityFramework.RequestManagement;
 using AutoApi.Rest.Pipeline.Controller;
 using AutoApi.Rest.Pipeline.PipelineBehaviours;
@@ -21,8 +17,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Collections.ObjectModel;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace AutoApi.Rest.Configuration.Wire;
+namespace AutoApi.Rest.Configuration;
 
 public static class ServiceCollectionExtensions
 {
@@ -76,7 +75,7 @@ public static class ServiceCollectionExtensions
 
     private static void AddEndpoints(AutoApiRestConfigurationOptions config)
     {
-        var endpointActions = typeof(IAutoApiRestController<,,>)
+        var endpointActions = typeof(IAutoApiRestController<,>)
             .GetMethods()
             .Select(x => new ActionEndpointSettings(x.Name))
             .ToArray();

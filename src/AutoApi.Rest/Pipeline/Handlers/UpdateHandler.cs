@@ -31,7 +31,7 @@ public class UpdateHandler<TEntity, TRequest, TResponse> :
     {
         var entity = request.IncludeNavigation == null ?
            await _repository.FindAsync(request.Id, cancellationToken) :
-           await _repository.GetOneAsync(x => x.Id == (Guid)request.Id, request.IncludeNavigation, cancellationToken);
+           await _repository.GetOneAsync(x => x.Id == request.Id, request.IncludeNavigation, cancellationToken);
 
         if (entity is null) return default!;
 

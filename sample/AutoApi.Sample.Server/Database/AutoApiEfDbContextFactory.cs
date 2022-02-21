@@ -9,6 +9,7 @@ public class AutoApiEfDbContextFactory : IDesignTimeDbContextFactory<AutoApiEfDb
     {
         //todo add guardclause
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
         if (environment is null)
         {
             throw new InvalidOperationException("No environment specified");

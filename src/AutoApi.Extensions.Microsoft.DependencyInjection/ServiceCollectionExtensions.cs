@@ -1,4 +1,5 @@
-﻿using AutoApi.Rest.Configuration.Wire;
+﻿using AutoApi.Rest.Configuration;
+using AutoApi.Rest.Configuration.Wire;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoApi.Extensions.Microsoft.DependencyInjection;

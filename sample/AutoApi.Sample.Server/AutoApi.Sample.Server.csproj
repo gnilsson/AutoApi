@@ -19,6 +19,7 @@
     </PackageReference>
     <PackageReference Include="NSwag.AspNetCore" Version="13.15.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -38,7 +38,7 @@ public class Repository<TEntity, TResponse, TContext> :
             query = query.Where(x => queryRequest.ForeignIds.Contains(x.Id));
         }
 
-        if (queryRequest.Parameters is not null)
+        if (queryRequest.Parameters is not null and { Count: > 0 })
         {
             query = query.Where(_querier(queryRequest.Parameters));
         }

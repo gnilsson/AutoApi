@@ -1,7 +1,7 @@
 ﻿using AutoApi.Extensions.Microsoft.DependencyInjection;
 using AutoApi.Mediator;
+using AutoApi.Rest.Configuration;
 using AutoApi.Rest.Configuration.Settings;
-using AutoApi.Rest.Configuration.Wire;
 using AutoApi.Rest.Pipeline.Handlers;
 using AutoApi.Sample.Server.Configuration;
 using AutoApi.Sample.Server.Database;
@@ -52,8 +52,8 @@ public class Startup
         //services.AddAuthorizationHandlers();
 
         //// services.AddSwagger();
-        //services.AddSwaggerDocument();
-
+        ///
+        services.AddSwaggerDocument();
         services.AddAutoApi();
     }
 

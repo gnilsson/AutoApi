@@ -5,7 +5,7 @@ using AutoApi.Sample.Shared.Enums;
 
 namespace AutoApi.Sample.Shared.Requests;
 
-public class ModifyAuthorRequest : IModifyRequest
+public class ModifyAuthorRequest : ICommandRequest
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

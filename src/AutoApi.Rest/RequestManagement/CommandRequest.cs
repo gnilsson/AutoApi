@@ -6,7 +6,7 @@ namespace AutoApi.Rest.RequestManagement;
 public abstract class CommandRequest<TCommand> :
     ICommand,
     ICommandRequest<TCommand>
-    where TCommand : IModifyRequest
+    where TCommand : ICommandRequest
 {
     public string[]? IgnoredProperties { get; set; }
     public Dictionary<string, object> RequestPropertyValues { get; } = new();

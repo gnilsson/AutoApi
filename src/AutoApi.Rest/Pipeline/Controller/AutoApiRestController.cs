@@ -16,7 +16,7 @@ public class AutoApiRestController<TResponse, TQuery, TCommand> :
     IAutoApiRestController<TQuery, TCommand>
     where TResponse : IEntityResponse
     where TQuery : IGetRequest
-    where TCommand : IModifyRequest
+    where TCommand : ICommandRequest
 {
     private readonly IMediator _mediator;
     private readonly IRepositoryWrapper _repositoryWrapper;

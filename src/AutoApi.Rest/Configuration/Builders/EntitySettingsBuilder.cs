@@ -31,7 +31,7 @@ public static class EntitySettingsBuilder
 
         var responseTypes = collectiveTypes.Where(x => x.GetInterface(nameof(IEntityResponse)) is not null).ToArray();
         var queryTypes = collectiveTypes.Where(x => x.GetInterface(nameof(IGetRequest)) is not null).ToArray();
-        var commandTypes = collectiveTypes.Where(x => x.GetInterface(nameof(IModifyRequest)) is not null).ToArray();
+        var commandTypes = collectiveTypes.Where(x => x.GetInterface(nameof(ICommandRequest)) is not null).ToArray();
 
         var entitySettingsCollection = CreateEntitySettingsCollection(
             config,
@@ -69,7 +69,7 @@ public static class EntitySettingsBuilder
         Type[] exportedTypes,
         Type[] collectiveTypes,
         IDictionary<Type, IEnumerable<ConfigurationDefinition.Parameter>> parameters,
-        IDictionary<Type, IEnumerable<ConfigurationDefinition.Field>> fieldDescriptions,
+        IDictionary<Type, IEnumerable<ConfigurationDefinition.Field>> fields,
         Type[] entityTypes,
         Type[] responseTypes,
         Type[] queryTypes,
@@ -109,7 +109,7 @@ public static class EntitySettingsBuilder
                 AuthorizeableEndpoints = GetAuthorizeableEndpoints(controllerEndpoint, controllerType),
                 AutoExpandMembers = controllerEndpoint.AutoExpandMembers,
                 ExplicitExpandedMembers = controllerEndpoint.ExplicitExpandedMembers!,
-                FieldDescriptions = fieldDescriptions.FirstOrDefault(x => x.Key == entityDefinition.ResponseType),
+                FieldDescriptions = fields.FirstOrDefault(x => x.Key == entityDefinition.ResponseType),
                 ForeignEntityDefinitions = foreignCollectionEntities,
             };
         }
@@ -145,7 +145,7 @@ public static class EntitySettingsBuilder
     private static void PerformAttributesChecking(Type[] exportedTypes)
     {
         var requests = exportedTypes
-            .Where(x => x.GetTypeInfo().ImplementedInterfaces.Contains(typeof(IModifyRequest)));
+            .Where(x => x.GetTypeInfo().ImplementedInterfaces.Contains(typeof(ICommandRequest)));
 
         var idCollectionAttributes = requests
             .SelectMany(x => x.GetProperties())
@@ -202,7 +202,7 @@ public static class EntitySettingsBuilder
             !x.IsAbstract &&
             x.BaseType == typeof(EntityResponse) ||
             x.BaseType == typeof(GetRequest) ||
-            x.GetInterface(nameof(IModifyRequest)) != null ||
+            x.GetInterface(nameof(ICommandRequest)) != null ||
             x.GetInterface(nameof(IQueryConfiguration)) != null); // move this last piece?
     }
 

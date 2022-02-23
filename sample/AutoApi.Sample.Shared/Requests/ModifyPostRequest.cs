@@ -3,7 +3,7 @@ using AutoApi.Rest.Shared.Requests;
 
 namespace AutoApi.Sample.Shared.Requests;
 
-public class ModifyPostRequest : IModifyRequest
+public class ModifyPostRequest : ICommandRequest
 {
     [Required]
     public string Title { get; set; }

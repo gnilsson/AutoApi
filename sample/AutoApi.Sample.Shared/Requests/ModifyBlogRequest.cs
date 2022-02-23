@@ -7,7 +7,7 @@ using GN.Toolkit;
 
 namespace AutoApi.Sample.Shared.Requests;
 
-public class ModifyBlogRequest : IModifyRequest
+public class ModifyBlogRequest : ICommandRequest
 {
     [Required]
     public string Title { get; set; } = default!;

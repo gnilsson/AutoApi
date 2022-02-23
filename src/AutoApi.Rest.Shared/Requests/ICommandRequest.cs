@@ -1,3 +1,3 @@
 ﻿namespace AutoApi.Rest.Shared.Requests;
 
-public interface IModifyRequest { }
+public interface ICommandRequest { }

@@ -5,7 +5,7 @@ namespace AutoApi.Rest.RequestManagement;
 
 public class UpdateCommand<TCommand, TResponse> :
     CommandRequest<TCommand>, IRequest<TResponse>
-    where TCommand : IModifyRequest
+    where TCommand : ICommandRequest
 {
     public UpdateCommand(Guid id, TCommand request) : base(request) => Id = id;
 }

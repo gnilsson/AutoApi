@@ -2,7 +2,7 @@
 
 namespace AutoApi.Rest.RequestManagement;
 
-public interface ICommandRequest<out TCommand> where TCommand : IModifyRequest
+public interface ICommandRequest<out TCommand> where TCommand : ICommandRequest
 {
     public TCommand Command { get; }
 }

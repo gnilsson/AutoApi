@@ -12,7 +12,7 @@ namespace AutoApi.Rest.Pipeline.PipelineBehaviours;
 
 internal sealed class ProvideCommandBehaviour<TRequest, TResponse> :
        IPipelineBehaviour<TRequest, TResponse>
-       where TRequest : ICommandRequest<IModifyRequest>, IRequest<TResponse>, ICommand
+       where TRequest : ICommandRequest<ICommandRequest>, IRequest<TResponse>, ICommand
 {
     private readonly IGeneralRepository _repository;
 

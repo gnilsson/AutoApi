@@ -5,7 +5,7 @@ namespace AutoApi.Rest.RequestManagement;
 
 public class CreateCommand<TCommand, TResponse> :
     CommandRequest<TCommand>, IRequest<TResponse>
-    where TCommand : IModifyRequest
+    where TCommand : ICommandRequest
 {
     public CreateCommand(TCommand request) : base(request) { }
 }

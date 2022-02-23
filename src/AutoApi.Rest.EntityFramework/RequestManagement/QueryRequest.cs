@@ -6,9 +6,9 @@ namespace AutoApi.Rest.EntityFramework.RequestManagement;
 
 public class QueryRequest
 {
-    public QueryRequest(GetRequest query) => Query = query;
+    public QueryRequest(IGetRequest query) => Query = query;
 
-    public GetRequest Query { get; } = default!;
+    public IGetRequest Query { get; } = default!;
     public ICollection<IParameter>? Parameters { get; set; }
     public PaginationQuery PaginationQuery { get; set; } = default!;
     public string? RequestRoute { get; set; }

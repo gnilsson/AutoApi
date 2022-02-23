@@ -29,10 +29,9 @@ public static class EntitySettingsBuilder
         var parameters = GetAllParameters(collectiveTypes);
         var fieldDescriptions = GetFieldDescriptions(collectiveTypes);
 
-        //todo change to interfaces
-        var responseTypes = collectiveTypes.Where(x => x.BaseType == typeof(EntityResponse)).ToArray();
-        var queryTypes = collectiveTypes.Where(x => x.BaseType == typeof(GetRequest)).ToArray();
-        var commandTypes = collectiveTypes.Where(x => x.GetInterface(nameof(IModifyRequest)) != null).ToArray();
+        var responseTypes = collectiveTypes.Where(x => x.GetInterface(nameof(IEntityResponse)) is not null).ToArray();
+        var queryTypes = collectiveTypes.Where(x => x.GetInterface(nameof(IGetRequest)) is not null).ToArray();
+        var commandTypes = collectiveTypes.Where(x => x.GetInterface(nameof(IModifyRequest)) is not null).ToArray();
 
         var entitySettingsCollection = CreateEntitySettingsCollection(
             config,
@@ -109,7 +108,7 @@ public static class EntitySettingsBuilder
                 //ValidatorType = GetValidator(exportedTypes, entityDefinition.CommandType),
                 AuthorizeableEndpoints = GetAuthorizeableEndpoints(controllerEndpoint, controllerType),
                 AutoExpandMembers = controllerEndpoint.AutoExpandMembers,
-                ExplicitExpandedMembers = controllerEndpoint.ExplicitExpandedMembers,
+                ExplicitExpandedMembers = controllerEndpoint.ExplicitExpandedMembers!,
                 FieldDescriptions = fieldDescriptions.FirstOrDefault(x => x.Key == entityDefinition.ResponseType),
                 ForeignEntityDefinitions = foreignCollectionEntities,
             };

@@ -8,7 +8,7 @@ namespace AutoApi.Rest.RequestManagement;
 public class GetQuery<TQuery, TResponse> :
     QueryRequest,
     IRequest<PaginateableResponse<TResponse>>
-    where TQuery : GetRequest
+    where TQuery : IGetRequest
 {
     public GetQuery(TQuery request) : base(request) { }
 }

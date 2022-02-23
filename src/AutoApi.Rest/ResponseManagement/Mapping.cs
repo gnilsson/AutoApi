@@ -8,13 +8,13 @@ using GN.Toolkit;
 
 namespace AutoApi.Rest.ResponseManagement;
 
-public class IdentifierTypeConverter : ITypeConverter<Guid, Identifier>
-{
-    public Identifier Convert(Guid source, Identifier destination, ResolutionContext context)
-    {
-        return new Identifier(source);
-    }
-}
+//public class IdentifierTypeConverter : ITypeConverter<Guid, Identifier>
+//{
+//    public Identifier Convert(Guid source, Identifier destination, ResolutionContext context)
+//    {
+//        return new Identifier(source);
+//    }
+//}
 
 public class Mapping
 {
@@ -48,7 +48,7 @@ public class Mapping
                 //    map.ForMember("BlogId", o => o.MapFrom(x => new Identifier(x.Id)));
                 //}
 
-                cfg.CreateMap<Guid, Identifier>().ConvertUsing<IdentifierTypeConverter>();
+            //    cfg.CreateMap<Guid, Identifier>().ConvertUsing<IdentifierTypeConverter>();
 
                 cfg.CreateMap(setting.EntityType, setting.ResponseType).ForMembersExplicitExpansion(setting);
 

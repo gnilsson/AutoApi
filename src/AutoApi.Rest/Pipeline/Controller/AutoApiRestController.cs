@@ -14,8 +14,8 @@ namespace AutoApi.Rest.Pipeline.Controller;
 public class AutoApiRestController<TResponse, TQuery, TCommand> :
     ControllerBase,
     IAutoApiRestController<TQuery, TCommand>
-    where TResponse : EntityResponse
-    where TQuery : GetRequest
+    where TResponse : IEntityResponse
+    where TQuery : IGetRequest
     where TCommand : IModifyRequest
 {
     private readonly IMediator _mediator;

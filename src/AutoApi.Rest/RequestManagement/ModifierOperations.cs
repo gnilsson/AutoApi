@@ -41,8 +41,6 @@ public static class ModifierOperations<TEntity, TCommand> where TCommand : IComm
                 Expression.Bind(_updatedMember, now)
             });
 
-            var ctor = typeof(TEntity).GetConstructor(BindingFlags.Public | BindingFlags.Instance, Array.Empty<Type>())!;
-
             var create = Expression.Lambda<Func<TCommand, TEntity>>(
                 Expression.MemberInit(Expression.New(typeof(TEntity)), exprs),
                 Expression.Parameter(typeof(TCommand))).CompileFast();

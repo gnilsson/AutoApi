@@ -48,7 +48,7 @@ public static class ServiceCollectionExtensions
 
         if (config.InterfaceDiscovery && config.ContextTypes is not null)
         {
-            config.Build();
+            config = config.Build();
         }
 
         services.AddSingleton(config);

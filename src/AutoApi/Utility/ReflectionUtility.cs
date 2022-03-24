@@ -4,13 +4,6 @@ namespace AutoApi.Toolkit;
 
 public static class ReflectionUtility
 {
-    public static T Invoke<T>(this Action<T> action) where T : new()
-    {
-        var obj = new T();
-        action.Invoke(obj);
-        return obj;
-    }
-
     public static bool ParentHasInterface(
         this Type type,
         Type interfaceType,

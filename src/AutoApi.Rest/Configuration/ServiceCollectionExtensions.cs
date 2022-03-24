@@ -25,24 +25,11 @@ namespace AutoApi.Rest.Configuration;
 
 public static class ServiceCollectionExtensions
 {
-    //public static void AddAutoApiControllers(this IServiceCollection services)
-    //{
-    //    services.AddControllers();
-    //}
-
-    //public static void AddMediator(this IServiceCollection services)
-    //{
-    //    services.AddTransient<ServiceFactory>(p => p.GetService);
-    //    services.AddTransient<IMediator, MediatorImpl>();
-
-    //    services.AddScoped<IPipelineBehaviour<TestRequest, TestResponse>, LoggingBehaviour>();
-    //    services.AddScoped<IRequestHandler<TestRequest, TestResponse>, GetHandler>();
-    //}}
-
-
     public static void AddRestControllers(this IServiceCollection services, Action<AutoApiRestConfigurationOptions> options)
     {
-        var config = options.Invoke();
+        var config = new AutoApiRestConfigurationOptions();
+
+        options(config);
 
         AddEndpoints(config);
 

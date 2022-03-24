@@ -36,9 +36,11 @@ public class AutoApiRestController<TResponse, TQuery, TCommand> :
     }
 
     [HttpDelete]
-    public Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        throw new NotImplementedException();
+        return await _mediator
+            .SendAsync(new DeleteCommand(id))
+            .ToResultAsync(Ok, NotFound);
     }
 
     [HttpGet]
@@ -58,8 +60,10 @@ public class AutoApiRestController<TResponse, TQuery, TCommand> :
     }
 
     [HttpPatch]
-    public Task<IActionResult> Update(Guid id, [FromBody] TCommand request)
+    public async Task<IActionResult> Update(Guid id, [FromBody] TCommand request)
     {
-        throw new NotImplementedException();
+        return await _mediator
+            .SendAsync(new UpdateCommand<TCommand, TResponse>(id, request))
+            .ToResultAsync(Ok, NotFound);
     }
 }

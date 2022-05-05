@@ -68,7 +68,7 @@ internal sealed class ProvideCommandBehaviour<TRequest, TResponse> :
 
         value = KeyValuePair.Create(propertyName, propertyValue);
 
-        return !(propertyValue is int and 0 && propertyValue is string and "");
+        return !(propertyValue is int and 0 || propertyValue is string and "");
     }
 
     private static string GetPropertyName(PropertyInfo property,RequestParameterAttribute parameterAttribute)
